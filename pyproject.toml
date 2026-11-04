@@ -20,6 +20,7 @@ build-backend = "uv_build"
 dev = [
     "commitizen>=4.19.3",
     "hypothesis>=6.170.13",
+    "pre-commit>=4.7.0",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
     "pytest-xdist>=3.8.0",
