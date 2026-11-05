@@ -55,6 +55,7 @@ tag_format = "$version"
 version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
+change_type_map = { feat = "Features", fix = "Bug fixes", refactor = "Refactoring", perf = "Performance" }
 
 # ============================================================
 # Linting and formatting (ruff)
