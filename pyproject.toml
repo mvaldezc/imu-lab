@@ -3,17 +3,20 @@
 # ============================================================
 
 [project]
+
 name = "imu-lab"
 version = "0.2.0"
+requires-python = ">=3.15"
 description = "Lightweight library for reading IMUs through a Raspberry Pi in Python."
-readme = "README.md"
-license = "MIT"
-license-files = ["LICENSE"]
 authors = [
     { name = "Marco Valdez", email = "mvaldezc@umich.edu" },
 ]
+
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["imu", "driver", "icm-20948", "raspberry pi"]
-requires-python = ">=3.15"
+
 dependencies = []
 
 [project.urls]
