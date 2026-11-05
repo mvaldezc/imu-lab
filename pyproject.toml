@@ -1,30 +1,53 @@
+# ============================================================
+# Project metadata
+# ============================================================
+
 [project]
+
 name = "imu-lab"
 version = "0.2.0"
-description = "Add your description here"
-readme = "README.md"
-authors = [
-    { name = "Marco Valdez", email = "marcovc41@gmail.com" }
-]
 requires-python = ">=3.15"
+description = "Lightweight library for reading IMUs through a Raspberry Pi in Python."
+authors = [
+    { name = "Marco Valdez", email = "mvaldezc@umich.edu" },
+]
+
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["imu", "driver", "icm-20948", "raspberry pi"]
+
 dependencies = []
 
-[project.scripts]
-imu-lab = "imu_lab:main"
-
-[build-system]
-requires = ["uv_build>=0.13.5,<0.14.0"]
-build-backend = "uv_build"
+[project.urls]
+Repository = "https://github.com/mvaldezc/imu-lab"
+Issues = "https://github.com/mvaldezc/imu-lab/issues"
+Documentation = "https://github.com/mvaldezc/imu-lab#readme"
+Changelog = "https://github.com/mvaldezc/imu-lab/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
     "commitizen>=4.19.3",
     "hypothesis>=6.170.13",
+    "ipykernel>=7.4.0",
+    "pre-commit>=4.7.0",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
     "pytest-xdist>=3.8.0",
     "ruff>=0.17.3",
 ]
+
+# ============================================================
+# Build
+# ============================================================
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+# ============================================================
+# Versioning and release (commitizen)
+# ============================================================
 
 [tool.commitizen]
 name = "cz_conventional_commits"
@@ -32,14 +55,15 @@ tag_format = "$version"
 version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
+change_type_map = { feat = "Features", fix = "Bug fixes", refactor = "Refactoring", perf = "Performance" }
+
+# ============================================================
+# Linting and formatting (ruff)
+# ============================================================
 
 [tool.ruff]
 src = ["src", "tests"]
 line-length = 100
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "B", "S", "I", "C90", "UP", "D", "PL"]
@@ -47,6 +71,7 @@ ignore = ["E501", "D107"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "PLR2004"]
+"notebooks/**" = ["D"]
 "__init__.py" = ["D104"]
 
 [tool.ruff.lint.pydocstyle]
@@ -54,12 +79,17 @@ convention = "google"
 
 [tool.ruff.lint.pylint]
 max-args = 7
+max-statements = 60
+
+# ============================================================
+# Testing (pytest + coverage)
+# ============================================================
 
 [tool.pytest]
 minversion = "9.0"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = ["-ra", "--strict-markers", "--strict-config", "--cov", "--cov-report=term",]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--cov"]
 
 [tool.coverage.run]
 source = ["imu_lab"]
