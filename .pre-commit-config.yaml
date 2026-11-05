@@ -18,6 +18,12 @@ repos:
     hooks:
       - id: gitleaks
 
+  # Strip notebook outputs so diffs stay readable and plots don't bloat the repo
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout
+
   # Run tools from the project venv so versions match uv.lock
   - repo: local
     hooks:
@@ -25,12 +31,12 @@ repos:
         name: ruff check
         entry: uv run --no-sync ruff check --fix
         language: system
-        types_or: [python, pyi]
+        types_or: [python, pyi, jupyter]
       - id: ruff-format
         name: ruff format
         entry: uv run --no-sync ruff format
         language: system
-        types_or: [python, pyi]
+        types_or: [python, pyi, jupyter]
       - id: uv-lock
         name: uv lock
         entry: uv lock --check
