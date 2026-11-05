@@ -16,6 +16,7 @@ jobs:
     # Skip the commit pushed by this workflow itself
     if: ${{ !startsWith(github.event.head_commit.message, 'bump:') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v7
         with:

@@ -13,8 +13,11 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
@@ -22,12 +25,32 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
 
-  secrets:
+  commits:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      # Every commit reaches main with merge commits, and commitizen bumps from them
+      - run: uv run cz check --rev-range "$BASE_SHA..$HEAD_SHA"
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+  secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -35,13 +58,17 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run pytest -n auto --cov --cov-report=term-missing --cov-report=xml
+      # --cov comes from addopts in pyproject.toml
+      - run: uv run pytest -n auto --cov-report=term-missing --cov-report=xml
       - uses: actions/upload-artifact@v7
         if: always()
         with:

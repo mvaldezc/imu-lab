@@ -1,7 +1,9 @@
 <!--
-PR title = squash commit message = release version. Use conventional commits:
+Every commit in this PR reaches main and decides the release version.
+Each one must be a conventional commit, and the strongest type wins:
   feat: ...   -> minor release        fix: ...    -> patch release
   feat!: ...  -> breaking change      docs/ci/chore/test/refactor: ... -> no release
+Clean up vague commits ("update config") before merging: they show up in the changelog.
 -->
 
 ## Summary
@@ -18,7 +20,7 @@ PR title = squash commit message = release version. Use conventional commits:
 
 - [ ] Tests added or updated for new behavior
 - [ ] README or docs updated if usage changed
-- [ ] Breaking changes use `!` in the PR title and are described below
+- [ ] Breaking changes use `!` in the commit type and are described below
 
 ## Breaking changes
 
