@@ -10,6 +10,10 @@ Clean up vague commits ("update config") before merging: they show up in the cha
 
 <!-- What does this change and why? Link related issues with "Closes #123". -->
 
+## Requirements
+
+<!-- IDs from docs/requirements.xlsx that this PR addresses, e.g. IMU-DRV-005, IMU-DRV-006. Write "None" if no requirement applies (docs, CI, tooling). -->
+
 ## How was this tested?
 
 - [ ] Unit tests (`uv run pytest`)
@@ -19,6 +23,7 @@ Clean up vague commits ("update config") before merging: they show up in the cha
 ## Checklist
 
 - [ ] Tests added or updated for new behavior
+- [ ] `docs/requirements.xlsx` updated (status, tests) for the requirements listed above
 - [ ] README or docs updated if usage changed
 - [ ] Breaking changes use `!` in the commit type and are described below
 
